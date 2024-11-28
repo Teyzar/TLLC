@@ -1,10 +1,6 @@
-import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
+import React from 'react';
+import { Stack, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LyricsIcon from '@mui/icons-material/Lyrics';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
@@ -13,18 +9,20 @@ import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 // import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import ChurchIcon from '@mui/icons-material/Church';
 
-const mainListItems = [
-  { text: 'Home', icon: <HomeRoundedIcon />},
+const mainListItems: ListItemType[] = [
+  { text: 'Home', icon: <HomeRoundedIcon/>,  href: '/'},
   { text: 'Members', icon: <ChurchIcon />,  href: '/members' },
-  { text: 'Worship Team', icon: <LyricsIcon /> },
-  { text: 'Youths', icon: <PeopleRoundedIcon /> },
+  { text: 'Worship Team', icon: <LyricsIcon />,  href: '/worship-team'},
+  { text: 'Youths', icon: <PeopleRoundedIcon />,  href: '/youths'},
 ];
 
-// const secondaryListItems = [
-//   { text: 'Settings', icon: <SettingsRoundedIcon /> },
-//   { text: 'About', icon: <InfoRoundedIcon /> },
-//   { text: 'Feedback', icon: <HelpRoundedIcon /> },
-// ];
+
+interface ListItemType {
+  href: string;
+  icon: React.ReactNode;
+  text: string;
+}
+
 
 export default function MenuContent() {
   return (
@@ -32,7 +30,11 @@ export default function MenuContent() {
       <List dense>
         {mainListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton selected={index === 0}  href={item.href} >
+            <ListItemButton
+              selected={index === 0} // Select the first item (for example)
+              component="a" // Use anchor tag to enable 'href'
+              href={item.href}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
@@ -40,6 +42,7 @@ export default function MenuContent() {
         ))}
       </List>
 
+      {/* Uncomment and modify to add secondary items */}
       {/* <List dense>
         {secondaryListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
